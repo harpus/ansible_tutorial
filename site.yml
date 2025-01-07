@@ -17,6 +17,7 @@
       upgrade: dist
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
+  
 
 
 - hosts: web_servers
@@ -53,7 +54,18 @@
       update_cache: yes
     when: ansible_distribution == "CentOS"
  
-
+  - name: install unzip
+    package:
+      name: unzip
+  
+  - name: install terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.10.3/terraform_1.10.3_linux_386.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755 
+      owner: root
+      group: root
 
 
 - hosts: db_servers
